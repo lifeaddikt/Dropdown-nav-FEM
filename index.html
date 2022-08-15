@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./images/favicon-32x32.png"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <title>Frontend Mentor | Intro section with dropdown navigation</title>
+  </head>
+  <body class="preload">
+    <header class="header">
+      <h1 class="header__logo">
+        <img src="images/logo.svg" alt="Logo de SNAP" />
+      </h1>
+      <nav class="nav" id="primary-navigation" data-visible="false">
+        <ul class="nav__site-links">
+          <li aria-expanded="false" class="nav__site-links__dropdown-links">
+            <a href="#">Features</a>
+          </li>
+          <ul class="dropdown feature" data-visible="false">
+            <li>
+              <img src="images/icon-todo.svg" alt="Icone Todo List"/><a
+                href="#"
+                >Todo List</a
+              >
+            </li>
+            <li>
+              <img src="images/icon-calendar.svg" alt="Icone Calendrier" /><a
+                href="#"
+                >Calendar</a
+              >
+            </li>
+            <li>
+              <img src="images/icon-reminders.svg" alt="Icone Cloche" /><a
+                href="#"
+                >Reminders</a
+              >
+            </li>
+            <li>
+              <img src="images/icon-planning.svg" alt="Icone Todo List" /><a
+                href="#"
+                >Planning</a
+              >
+            </li>
+          </ul>
+          <li aria-expanded="false" class="nav__site-links__dropdown-links">
+            <a href="#">Company</a>
+          </li>
+          <ul class="dropdown company" data-visible="false">
+            <li><a href="#">History</a></li>
+            <li><a href="#">Our team</a></li>
+            <li><a href="#">Blog</a></li>
+          </ul>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">About</a></li>
+        </ul>
+        <ul class="nav__user-links">
+          <li><a href="">Login</a></li>
+          <li><a href="" class="btn-outline">Register</a></li>
+        </ul>
+      </nav>
+      <div class="nav__burger-bg"></div>
+      <button
+        aria-expanded="false"
+        aria-controls="primary-navigation"
+        type="menu"
+        class="header__button"
+      ></button>
+    </header>
+
+    <main>
+      <section class="first-section">
+        <picture>
+          <source
+            srcset="images/image-hero-mobile.png"
+            media="(max-width: 750px)"
+          />
+          <source
+            srcset="images/image-hero-desktop.png"
+            media="(min-width: 750px)"
+          />
+          <img
+            src="images/image-hero-mobile.png"
+            alt="Un homme a la peau noire utilise un ordinateur, tout autour il y a des graphismes"
+          />
+        </picture>
+      </section>
+
+      <section class="second-section">
+        <div class="second-section__hero">
+          <h2>Make remote work</h2>
+          <p class="second-section__paragraph">
+            Get your team in sync, no matter your location. Streamline
+            processes, create team rituals, and watch productivity soar.
+          </p>
+          <button class="second-section__button" type="button">
+            <a href="">Learn more</a>
+          </button>
+        </div>
+        <ul class="second-section__icons-list">
+          <li><img src="images/client-databiz.svg" alt="logo Databiz" /></li>
+          <li>
+            <img src="images/client-audiophile.svg" alt="Logo audiophile" />
+          </li>
+          <li><img src="images/client-meet.svg" alt="Logo meet" /></li>
+          <li><img src="images/client-maker.svg" alt="Logo maker" /></li>
+        </ul>
+      </section>
+    </main>
+
+    <script>
+      // BUG CHROME REFRESH
+      window.addEventListener("load", () => {
+        document.querySelector("body").classList.remove("preload");
+      });
+
+      // BURGER MENU
+
+      const burgerButton = document.querySelector(".header__button");
+      const menu = document.querySelector("#primary-navigation");
+
+      burgerButton.addEventListener("click", () => {
+        let visible = menu.dataset.visible;
+
+        if (visible === "false") {
+          menu.setAttribute("data-visible", true);
+          burgerButton.setAttribute("aria-expanded", true);
+        } else if (visible) {
+          menu.dataset.visible = false;
+          burgerButton.setAttribute("aria-expanded", false);
+        }
+      });
+
+      // DROPDOWNS
+      const dropdownButtons = document.querySelectorAll(
+        ".nav__site-links__dropdown-links"
+      );
+
+      dropdownButtons.forEach((btn) => {
+        btn.addEventListener("click", (e) => {
+          let expanded = e.currentTarget.getAttribute("aria-expanded");
+          let dropdown = e.currentTarget.nextElementSibling;
+
+          if (expanded === "false") {
+            e.currentTarget.setAttribute("aria-expanded", true);
+            dropdown.setAttribute("data-visible", true);
+          } else if (expanded === "true") {
+            e.currentTarget.setAttribute("aria-expanded", false);
+            dropdown.setAttribute("data-visible", false);
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
